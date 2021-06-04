@@ -25,7 +25,6 @@ export default class Grid extends Component {
   }
 
   handleMouseEnter = (x, y, e) => {
-    console.log("start: ", this.state.currentStartingPosition, "end: ", this.state.currentEndingPosition)
     e.preventDefault();
     if (this.state.isHoldingStart === true && !(x === this.state.currentEndingPosition.x && y === this.state.currentEndingPosition.y)) {
       let updatedArray = this.updatedTileArray(x, y, "start");
@@ -41,6 +40,7 @@ export default class Grid extends Component {
 
   handleMouseDown = (x, y, e) => {
     e.preventDefault();
+    this.setState({ currentlyAnimating: false })
     if (x === this.state.currentStartingPosition.x && y === this.state.currentStartingPosition.y) {
       this.setState({ isHoldingStart: true })
     } else if (x === this.state.currentEndingPosition.x && y === this.state.currentEndingPosition.y) {
@@ -121,12 +121,11 @@ export default class Grid extends Component {
     this.setState({ currentGridTiles: emptyTileArray, currentlyAnimating: false });
   };
 
-  performFunction = () => {
+  resetTiles = () => {
     this.resetTileArray();
   };
 
   getPath = async () => {
-      let moves = [];
       const startX = this.state.currentStartingPosition.x;
       const startY = this.state.currentStartingPosition.y;
       const endX = this.state.currentEndingPosition.x;
@@ -136,7 +135,7 @@ export default class Grid extends Component {
       return responseDijkstra;
   };
 
-  showMeTheWay = async () => {
+  visualizePath = async () => {
       const moves = await this.getPath();
       const timer = ms => new Promise(res => setTimeout(res, ms));
       this.setState({ currentlyAnimating: true })
@@ -146,7 +145,7 @@ export default class Grid extends Component {
           this.setState({ currentGridTiles: emptyTileArray})
           return;
         }          
-          await timer(0.000000001);
+          await timer(1);
           const newArray = this.updatedTileArray(moves[move].x, moves[move].y, moves[move].state);
           this.setState({currentGridTiles: newArray});
       }
@@ -157,7 +156,7 @@ export default class Grid extends Component {
       <div className="gridWrapper">
         <button
           onClick={() => {
-            this.performFunction();
+            this.resetTiles();
           }}
         >
           Reset
@@ -201,7 +200,7 @@ export default class Grid extends Component {
         </div>
         <button
           onClick={() => {
-            this.showMeTheWay();
+            this.visualizePath();
           }}
         >
           Visualize Dijkstra

@@ -75,8 +75,9 @@ export const dijkstra = async (startX, startY, endX, endY, grid) => {
             if (tile.x !== startX || tile.y !== startY) {
                 tile.distance = Infinity;
             }            
-            tile.tileState = "unexplored";
+            return tile.tileState = "unexplored";            
         })
+        return grid;
     })
 
     const getNeighbours = (x,y) => {
@@ -127,7 +128,6 @@ export const dijkstra = async (startX, startY, endX, endY, grid) => {
                         grid[endY][endX].previousTile = root;
                     }
                     let currentTile = grid[endY][endX].previousTile;
-                    console.log("currentile: ", currentTile);
                     while(currentTile.x !== startX || currentTile.y !== startY) {
                         currentTile.tileState = "path";
                         moves.push({x: currentTile.x, y: currentTile.y, state: "path"});
@@ -142,8 +142,7 @@ export const dijkstra = async (startX, startY, endX, endY, grid) => {
                     }
                     //unvisited.push(neighbours[neighbour]);
                     Heap.insertNode(neighbours[neighbour])
-                }                
-                const currHeap = Heap.getArrayForm();
+                }
                 root.tileState = "explored";
                 moves.push({x: root.x, y: root.y, state: "explored"});
                 Heap.deleteRoot();               
