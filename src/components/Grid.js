@@ -13,6 +13,7 @@ export default class Grid extends Component {
       isHoldingEnd: false,
       currentStartingPosition: { x: 19, y: 7 },
       currentEndingPosition: { x: 29, y: 7 },
+      currentlyAnimating: false,
     };
   }
   width = 50; //not part of state because dimensions are fixed..for now
@@ -117,7 +118,7 @@ export default class Grid extends Component {
 
   resetTileArray = () => {
     const emptyTileArray = this.generateEmptyTileArray();
-    this.setState({ currentGridTiles: emptyTileArray });
+    this.setState({ currentGridTiles: emptyTileArray, currentlyAnimating: false });
   };
 
   performFunction = () => {
@@ -138,8 +139,13 @@ export default class Grid extends Component {
   showMeTheWay = async () => {
       const moves = await this.getPath();
       const timer = ms => new Promise(res => setTimeout(res, ms));
-
+      this.setState({ currentlyAnimating: true })
       for (let move in moves) {
+        if(!this.state.currentlyAnimating){
+          const emptyTileArray = this.generateEmptyTileArray();
+          this.setState({ currentGridTiles: emptyTileArray})
+          return;
+        }          
           await timer(0.000000001);
           const newArray = this.updatedTileArray(moves[move].x, moves[move].y, moves[move].state);
           this.setState({currentGridTiles: newArray});
