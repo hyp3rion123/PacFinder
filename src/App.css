@@ -1,38 +1,17 @@
-.App {
-  text-align: center;
+body {
+    background-image: url("./components/background.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1 {
+    text-align: center;      
+    color: white;
+    font-size: 50px;
+    text-shadow: 
+    .1vw 0vw .25vw #FFACFC, .2vw 0vw .25vw #FFACFC, .4vw 0vw .25vw #FFACFC, 
+    .1vw 0vw   2vw #FF0099, .2vw 0vw   2vw #FF0099, .4vw 0vw   2vw #FF0099, 
+    .1vw 0vw   1vw #FF00CC, .2vw 0vw   1vw #FF00CC, .4vw 0vw   5vw #FF00CC, 
+    .1vw 0vw   5vw #FF00FF, .2vw 0vw  20vw #FF00FF, .4vw 0vw  10vw #FF00FF,
+    .1vw 0vw  10vw #CC00FF, .2vw 0vw  30vw #CC00FF, .4vw 0vw  10vw #CC00FF;
 }

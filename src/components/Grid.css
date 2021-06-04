@@ -1,0 +1,22 @@
+.gridWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.grid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: repeat(50, 30px);
+    grid-template-rows: repeat(15, 30px);
+    border: 5px solid rgb(88, 36, 148);
+}
+
+button {
+    background-color:purple;
+    color :white;
+    font-family: 'Roboto', sans-serif;
+    height: 50px;
+}
