@@ -3,6 +3,7 @@ import Tile from "./Tile";
 import {dijkstra} from './Dijkstra'
 import {prim} from './Prim'
 import "./Grid.css";
+import PopUp from "./PopUp";
 
 export default class Grid extends Component {
   constructor() {
@@ -16,6 +17,7 @@ export default class Grid extends Component {
       currentEndingPosition: { x: 29, y: 7 },
       currentlyAnimating: false,
       mazeGenerated: false,
+      seeHelp: false
     };
   }
   width = 50; //not part of state because dimensions are fixed..for now
@@ -195,67 +197,77 @@ export default class Grid extends Component {
     return responseMaze;
   }
 
+  displayHelp = async () => {
+    this.setState({
+      seeHelp: !this.state.seeHelp
+    })
+  }
+
   render() {
     return (
       <div className="gridWrapper">
-        <button
-          onClick={() => {
-            this.resetTileArray("hard");
-          }}
-        >
-          Reset
-        </button>        
-        <div className="grid">
-          {this.state.currentGridTiles &&
-            this.state.currentGridTiles.map((row) => {
-              return row.map((tile) => {
-                const {
-                  key,
-                  x,
-                  y,
-                  handleMouseDown,
-                  handleMouseEnter,
-                  handleMouseUp,
-                  wall,
-                  path,
-                  exploring,
-                  explored,
-                  start,
-                  end,
-                } = tile;
-                return (
-                  <Tile
-                    key={key}
-                    x={x}
-                    y={y}
-                    handleMouseEnter={handleMouseEnter}
-                    wall={wall}
-                    path={path}
-                    exploring={exploring}
-                    explored={explored}
-                    handleMouseDown={handleMouseDown}
-                    handleMouseUp={handleMouseUp}
-                    start={start}
-                    end={end}
-                  />
-                );
-              });
-            })}
-        </div>
-        <button
-          onClick={() => {
-            this.dijkstraButtonClick();
-          }}
-        >
-          Visualize Dijkstra
-        </button>
-        <button
-          onClick={() => {
-            this.generateMazeButtonClick();
-          }}
-        >
-          Generate Random Maze
-        </button>
+        {this.state.seeHelp ? <PopUp toggle={this.displayHelp}/> : null}
+          <button onClick={() => {this.displayHelp()}}>          
+              Help
+          </button>        
+          <button
+            onClick={() => {
+              this.resetTileArray("hard");
+            }}
+          >
+            Reset
+          </button>        
+          <div className="grid">
+            {this.state.currentGridTiles &&
+              this.state.currentGridTiles.map((row) => {
+                return row.map((tile) => {
+                  const {
+                    key,
+                    x,
+                    y,
+                    handleMouseDown,
+                    handleMouseEnter,
+                    handleMouseUp,
+                    wall,
+                    path,
+                    exploring,
+                    explored,
+                    start,
+                    end,
+                  } = tile;
+                  return (
+                    <Tile
+                      key={key}
+                      x={x}
+                      y={y}
+                      handleMouseEnter={handleMouseEnter}
+                      wall={wall}
+                      path={path}
+                      exploring={exploring}
+                      explored={explored}
+                      handleMouseDown={handleMouseDown}
+                      handleMouseUp={handleMouseUp}
+                      start={start}
+                      end={end}
+                    />
+                  );
+                });
+              })}
+          </div>
+          <button
+            onClick={() => {
+              this.dijkstraButtonClick();
+            }}
+          >
+            Visualize Dijkstra
+          </button>
+          <button
+            onClick={() => {
+              this.generateMazeButtonClick();
+            }}
+          >
+            Generate Random Maze
+          </button>
       </div>
     );
   }
