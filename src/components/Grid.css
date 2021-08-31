@@ -12,6 +12,7 @@
     grid-template-columns: repeat(50, 30px);
     grid-template-rows: repeat(15, 30px);
     border: 5px solid rgb(88, 36, 148);
+    z-index: 10;
 }
 
 button {
@@ -19,4 +20,5 @@ button {
     color :white;
     font-family: 'Roboto', sans-serif;
     height: 50px;
+    transform: translate(400px, -90px);
 }
