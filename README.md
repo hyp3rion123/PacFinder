@@ -1,4 +1,4 @@
-# PacFinder(IMPORTANT: This project is under development)
+# PacFinder
 Pathfinding algorithm visualizer with a slight twist: 80s arcade retro theme based on the original Pacman game. The project currently runs using the Dijkstra pathfinding algorithm.
 
 # Current Visual Example:  
